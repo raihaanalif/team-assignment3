@@ -18,7 +18,7 @@ if connect.mydb:
         menu = display_menu()
         if menu == 1:
             # print("ini register")
-            register.register_main()
+            register.register_main(connect.mydb)
         elif menu == 2:
             print("ini login")
         elif menu == 3:

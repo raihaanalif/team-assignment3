@@ -1,5 +1,7 @@
+import mysql.connector
+
 ## Validasi UserID
-def validasi_userid(userid):
+def validasi_userid(userid, db):
     if len(userid) < 6 or len(userid) > 20:
         print("UserID harus 6-20 karakter")
         print("="*100)
@@ -20,8 +22,21 @@ def validasi_userid(userid):
     #     if user["UserId"] == userid:
     #         print("UserID sudah terdaftar")
     #         print("="*100)
+
+    mycursor = db.cursor()
+    sql = "select * from users where username = %s"
+    user = (userid, )
+
+    mycursor.execute(sql, user)
+    result = mycursor.fetchall()
+
+    db.close
     
-    return True
+    if result:
+        print("UserID sudah terdaftar")
+        print("="*100)
+    else:
+        return True
 
 #validasi email
 def validasi_email(email):
@@ -112,13 +127,34 @@ def validasi_password(password):
         else:
             return True
     
-def temp_save(user_dictionary):
+def temp_save(dictionary, db):
     var_conf = input("Apakah anda yakin untuk menyimpan data? (Y/N): ")
     if var_conf.islower():
         var_conf = var_conf.isupper()
     if var_conf == "Y":
-        print(len(user_dictionary))
-        print("Data anda berhasil tersimpan")
+        # print(len(user_dictionary))
+
+        mycursor = db.cursor()
+
+        sql = "insert into users (username, email, password, name, age, gender, job, city, rt, rw, latitude, longitude, num) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (dictionary["user-id"],
+               dictionary["email"],
+               dictionary["password"],
+               dictionary["name"],
+               dictionary["age"],
+               dictionary["gender"],
+               dictionary["job"],
+               dictionary["city"],
+               dictionary["rt"],
+               dictionary["rw"],
+               dictionary["latitude"],
+               dictionary["longitude"],
+               dictionary["num"])
+        
+        mycursor.execute(sql, val)
+
+        db.commit()
+        print("Data anda berhasil tersimpan: ", mycursor.lastrowid)
         print("="*100)
     elif var_conf == "N":
         print("Data anda tidak tersimpan")
@@ -128,7 +164,7 @@ def temp_save(user_dictionary):
         print("="*100)
 
 
-def register_main():
+def register_main(mydb):
 
     passIsConfirmed = False
     userIDConfirmed = False
@@ -144,7 +180,7 @@ def register_main():
 
     while userIDConfirmed == False:
         userid = input("Masukkan USER ID untuk akun anda: ")
-        validation_user = validasi_userid(userid)
+        validation_user = validasi_userid(userid, mydb)
         if validation_user == True:
             userIDConfirmed == True
             # print("UserID Valid")
@@ -287,6 +323,8 @@ def register_main():
 
     user = {
         "user-id": userid,
+        "email": email,
+        "password": password,
         "name": name,
         "age": age,
         "gender": gender,
@@ -299,6 +337,6 @@ def register_main():
         "num": num
     }    
 
-    temp_save(user)
+    temp_save(user, mydb)
 
             
