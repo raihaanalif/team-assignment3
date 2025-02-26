@@ -21,7 +21,9 @@ if connect.mydb:
             # print("ini register")
             register.register_main(connect.mydb)
         elif menu == 2:
-            login.login_main(connect.mydb)
+            data_pengguna = login.login_main(connect.mydb)
+            if data_pengguna:
+                login.tampilan_info_pengguna(data_pengguna)
         elif menu == 3:
             print("Anda berhasil keluar dari aplikasi")
             break

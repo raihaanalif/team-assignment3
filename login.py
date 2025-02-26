@@ -1,3 +1,5 @@
+
+
 def login_main(mydb):
     loginBerhasil = False
     
@@ -53,23 +55,7 @@ def login_main(mydb):
                 print("="*100)
                 return None
 
-def tampilan_info_pengguna(data_pengguna):
-    if data_pengguna:
-        print("="*100)
-        print("INFORMASI PENGGUNA")
-        print("="*100)
-        print("Nama:", data_pengguna["nama"])
-        print("Email:", data_pengguna["email"])
-        print("Umur:", data_pengguna["umur"])
-        print("Jenis Kelamin:", data_pengguna["gender"])
-        print("Pekerjaan:", data_pengguna["pekerjaan"])
-        print("Kota:", data_pengguna["kota"])
-        print("RT:", data_pengguna["rt"])
-        print("RW:", data_pengguna["rw"])
-        print("Latitude:", data_pengguna["latitude"])
-        print("Longitude:", data_pengguna["longitude"])
-        print("Nomor Telepon:", data_pengguna["nomor"])
-        print("="*100)
+
 
 # Contoh penggunaan:
 # mydb = mysql.connector.connect(
