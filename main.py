@@ -1,5 +1,6 @@
 import connect
 import register
+import login
 
 print("## Selamat datang di XXYY Apps ###")
 
@@ -20,7 +21,7 @@ if connect.mydb:
             # print("ini register")
             register.register_main(connect.mydb)
         elif menu == 2:
-            print("ini login")
+            login.login_main(connect.mydb)
         elif menu == 3:
             print("Anda berhasil keluar dari aplikasi")
             break
