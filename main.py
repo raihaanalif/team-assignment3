@@ -23,7 +23,7 @@ if connect.mydb:
         elif menu == 2:
             data_pengguna = login.login_main(connect.mydb)
             if data_pengguna:
-                login.tampilan_info_pengguna(data_pengguna)
+                login.tampilan_info_pengguna(data_pengguna) 
         elif menu == 3:
             print("Anda berhasil keluar dari aplikasi")
             break
